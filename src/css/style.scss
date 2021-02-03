@@ -49,6 +49,8 @@ body {
       width: 200px;
       height: 230px;
       margin-right: 50px;
+      border-radius: 10px;
+
       &:nth-child(4n) {
         margin-right: 0px;
       }
@@ -59,6 +61,7 @@ body {
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
+        border-radius: 5px;
         .card-front,
         .card-back {
           position: absolute;
@@ -67,12 +70,12 @@ body {
           border-radius: 10px;
           -webkit-backface-visibility: hidden; /* Safari */
           backface-visibility: hidden;
+          box-shadow: 3px 3px 10px rgba(86, 90, 87, 0.452);
         }
         .card-front {
           background-image: url("../../images/binoculars.jpg");
           background-position: center;
           background-size: cover;
-          border: 2px rgb(195, 226, 181) solid;
           color: black;
         }
         .card-back {

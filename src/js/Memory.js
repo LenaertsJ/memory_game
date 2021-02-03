@@ -138,8 +138,11 @@ export default class Memory {
         window.alert(
           "Wow, you discovered all there is to discover, but come again some time!"
         );
+        this._level = 0;
+      } else {
+        window.alert("Nice work explorer, all animals have been matched");
       }
-      window.alert("Nice work explorer, all animals have been matched");
+
       //LEVEL UP
       this._level += 1;
       //REMOVE CARDS
