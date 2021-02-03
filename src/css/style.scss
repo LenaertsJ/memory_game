@@ -23,22 +23,35 @@ body {
       text-transform: uppercase;
       color: rgb(61, 53, 173);
     }
+    p {
+      font-family: "Raleway", sans-serif;
+      margin-top: 10px;
+      margin-top: 10px;
+    }
   }
   .gameboard {
     margin: 0 auto;
     width: 70%;
     height: 80%;
-    padding: 10px;
+    padding-left: 80px;
+    padding-right: 80px;
     border-radius: 5px;
-    background-color: rgb(187, 143, 167);
+    background-image: url("../../images/jungle.jpg");
+    background-position: center;
+    background-size: cover;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
     .card {
       background: transparent;
       perspective: 1000px;
-      width: 150px;
-      height: 200px;
+      width: 200px;
+      height: 230px;
+      margin-right: 50px;
+      &:nth-child(4n) {
+        margin-right: 0px;
+      }
       .card-inner {
         position: relative;
         width: 100%;
@@ -56,11 +69,14 @@ body {
           backface-visibility: hidden;
         }
         .card-front {
-          background-image: url("../../images/herringbone.png");
+          background-image: url("../../images/binoculars.jpg");
+          background-position: center;
+          background-size: cover;
+          border: 2px rgb(195, 226, 181) solid;
           color: black;
         }
         .card-back {
-          background-color: dodgerblue;
+          background-color: rgb(255, 161, 55);
           color: white;
           transform: rotateY(180deg);
           display: flex;
@@ -81,7 +97,7 @@ body {
       animation-name: whoop;
       animation-duration: 0.7s;
       .card-back {
-        background-color: rgb(50, 146, 50) !important;
+        background-color: rgb(212, 183, 16) !important;
       }
     }
   }

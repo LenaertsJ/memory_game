@@ -10,8 +10,8 @@ export default class Memory {
     this.getIcons();
     this._firstFlip = null;
     this._secondFlip = null;
-    this._count = 0;
-    this._score = 0;
+    this._turns = 0;
+    this._matches = 0;
     // this._selected =
     this._flippedCards = [];
     this.setUpEvents();
@@ -32,6 +32,12 @@ export default class Memory {
   init() {
     const container = document.querySelector(".container");
     container.insertAdjacentHTML("beforeend", "<div class='gameboard'></div>");
+    const title = document.querySelector(".title-box");
+    title.insertAdjacentHTML(
+      "beforeend",
+      `<p class='level'>Level: ${this._level}`
+    );
+    this._matches = 0;
     this.play();
   }
 
@@ -49,7 +55,7 @@ export default class Memory {
       }
     }
 
-    //CREATE ARRAY OF ALL ICONS AND SHUFFLE
+    //DUPLICATE ICONS ARRAY FOR MATCHING CARDS
     const allCards = [...icons, ...icons];
 
     //SHUFFLE FUNCTION
@@ -80,16 +86,13 @@ export default class Memory {
   //LISTEN TO EVENTS
   setUpEvents = () => {
     window.addEventListener("flipped", (card) => {
-      if (this._count == 0) {
+      if (this._turns == 0) {
         this._firstFlip = card.detail;
-        this._count += 1;
-        console.log(this._firstFlip);
-        console.log(this._count);
-      } else if (this._count == 1) {
+        this._turns += 1;
+      } else if (this._turns == 1) {
         this._secondFlip = card.detail;
-        console.log(this._secondFlip);
         this.checkMatch();
-        this._count = 0;
+        this._turns = 0;
       }
     });
   };
@@ -98,10 +101,12 @@ export default class Memory {
 
   checkMatch = () => {
     if (this._firstFlip._icon === this._secondFlip._icon) {
-      console.log("These cards match");
-      this.cardsMatch();
+      setTimeout(this.cardsMatch, 500);
+      this._matches += 1;
+      console.log(this._matches);
+      console.log(this._level);
+      setTimeout(this.gameEnd, 1500);
     } else {
-      console.log("These cards do not match");
       setTimeout(this.unFlip, 1000);
     }
   };
@@ -125,5 +130,25 @@ export default class Memory {
     this._secondFlip._ref
       .querySelector(".card-inner")
       .classList.toggle("matched");
+  };
+
+  gameEnd = () => {
+    if (this._matches == this._level * 2) {
+      if (this._level == 3) {
+        window.alert(
+          "Wow, you discovered all there is to discover, but come again some time!"
+        );
+      }
+      window.alert("Nice work explorer, all animals have been matched");
+      //LEVEL UP
+      this._level += 1;
+      //REMOVE CARDS
+      const gameboard = document.querySelector(".gameboard");
+      const level = document.querySelector(".level");
+      gameboard.remove();
+      level.remove();
+      //INITIALIZE NEW GAME
+      this.init();
+    }
   };
 }
