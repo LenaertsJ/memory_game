@@ -1,0 +1,118 @@
+@use "./base/variables" as *;
+@use "./base/reset";
+@use "./base/fonts";
+@use "./base/mixins" as *;
+
+@import "../../icons/style";
+
+html,
+body {
+  height: 100vh;
+}
+
+.container {
+  height: 100vh;
+  padding: 20px;
+  background-color: gainsboro;
+  .title-box {
+    text-align: center;
+    margin-bottom: 50px;
+    h1 {
+      font-family: "Monoton", sans-serif;
+      font-size: 50px;
+      text-transform: uppercase;
+      color: rgb(61, 53, 173);
+    }
+  }
+  .gameboard {
+    margin: 0 auto;
+    width: 70%;
+    height: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(187, 143, 167);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .card {
+      background: transparent;
+      perspective: 1000px;
+      width: 150px;
+      height: 200px;
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        .card-front,
+        .card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          -webkit-backface-visibility: hidden; /* Safari */
+          backface-visibility: hidden;
+        }
+        .card-front {
+          background-image: url("../../images/herringbone.png");
+          color: black;
+        }
+        .card-back {
+          background-color: dodgerblue;
+          color: white;
+          transform: rotateY(180deg);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            font-size: 120px;
+          }
+        }
+      }
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    .matched {
+      border-radius: 10px;
+      animation-name: whoop;
+      animation-duration: 0.7s;
+      .card-back {
+        background-color: rgb(50, 146, 50) !important;
+      }
+    }
+  }
+}
+
+@keyframes whoop {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
