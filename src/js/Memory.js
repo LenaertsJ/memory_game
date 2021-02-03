@@ -142,7 +142,6 @@ export default class Memory {
       } else {
         window.alert("Nice work explorer, all animals have been matched");
       }
-
       //LEVEL UP
       this._level += 1;
       //REMOVE CARDS

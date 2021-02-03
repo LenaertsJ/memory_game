@@ -21,10 +21,11 @@ body {
       font-family: "Monoton", sans-serif;
       font-size: 50px;
       text-transform: uppercase;
-      color: rgb(61, 53, 173);
+      color: rgb(173, 53, 163);
     }
     p {
       font-family: "Raleway", sans-serif;
+      color: rgb(55, 53, 173);
       margin-top: 10px;
       margin-top: 10px;
     }
@@ -33,22 +34,22 @@ body {
     margin: 0 auto;
     width: 70%;
     height: 80%;
-    padding-left: 80px;
-    padding-right: 80px;
+    padding: 50px;
+    // padding-right: 80px;
     border-radius: 5px;
     background-image: url("../../images/jungle.jpg");
     background-position: center;
     background-size: cover;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     .card {
       background: transparent;
       perspective: 1000px;
       width: 200px;
-      height: 230px;
-      margin-right: 50px;
+      height: 200px;
+      margin-right: 80px;
       border-radius: 10px;
 
       &:nth-child(4n) {
@@ -99,6 +100,7 @@ body {
       border-radius: 10px;
       animation-name: whoop;
       animation-duration: 0.7s;
+      backface-visibility: unset;
       .card-back {
         background-color: rgb(212, 183, 16) !important;
       }
