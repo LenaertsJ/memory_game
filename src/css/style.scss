@@ -47,8 +47,8 @@ body {
       perspective: 500px;
       width: 20%;
       height: 190px;
-      // margin-right: 80px;
       border-radius: 10px;
+      box-shadow: 3px 3px 10px rgba(86, 90, 87, 0.452);
 
       &:nth-child(4n) {
         margin-right: 0px;
@@ -78,7 +78,7 @@ body {
           color: black;
         }
         .card-back {
-          background-color: rgb(255, 161, 55);
+          background-color: rgb(110, 166, 238);
           color: white;
           transform: rotateY(180deg);
           display: flex;

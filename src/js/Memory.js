@@ -4,7 +4,7 @@ import { Card } from "./Card";
 // CREATE GAMEPLAY CLASS
 
 export default class Memory {
-  constructor(l = 3) {
+  constructor(l = 1) {
     this._allIcons = [];
     this._level = l;
     this.getIcons();
@@ -84,6 +84,7 @@ export default class Memory {
   //LISTEN TO EVENTS
   setUpEvents = () => {
     window.addEventListener("flipped", (card) => {
+      //check if it's the first card flipped, if so add to flip array
       if (this._flips.length == 0) {
         this._firstFlip = card.detail;
         this._flips.push(this._firstFlip);
@@ -141,7 +142,7 @@ export default class Memory {
     //game ends after 3 succesful rounds
     if (this._level == 3) {
       window.alert(
-        "Wow, you discovered all there is to discover! Your short-term memory and wildlife spotting skills are ace..."
+        "Wow, you discovered all there is to discover! Your short-term memory and wildlife spotting skills are ACE!"
       );
       //reset level to 0
       this._level = 0;
