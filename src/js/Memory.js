@@ -4,16 +4,14 @@ import { Card } from "./Card";
 // CREATE GAMEPLAY CLASS
 
 export default class Memory {
-  constructor(l = 1) {
+  constructor(l = 3) {
     this._allIcons = [];
     this._level = l;
     this.getIcons();
     this._firstFlip = null;
     this._secondFlip = null;
-    this._turns = 0;
+    this._flips = [];
     this._matches = 0;
-    // this._selected =
-    this._flippedCards = [];
     this.setUpEvents();
   }
 
@@ -86,33 +84,38 @@ export default class Memory {
   //LISTEN TO EVENTS
   setUpEvents = () => {
     window.addEventListener("flipped", (card) => {
-      if (this._turns == 0) {
+      if (this._flips.length == 0) {
         this._firstFlip = card.detail;
-        this._turns += 1;
-      } else if (this._turns == 1) {
+        this._flips.push(this._firstFlip);
+      } else if (this._flips.length == 1) {
         this._secondFlip = card.detail;
+        this._flips.push(this._secondFlip);
         this.checkMatch();
-        this._turns = 0;
       }
     });
   };
 
   //CHECK IF CARDS MATCH
-
   checkMatch = () => {
     if (this._firstFlip._icon === this._secondFlip._icon) {
+      //make matched cards unflippable
+      this._firstFlip._ref.onclick = null;
+      this._secondFlip._ref.onclick = null;
+      //empty array of flips to start a new turn
+      this._flips = [];
       setTimeout(this.cardsMatch, 500);
       this._matches += 1;
-      console.log(this._matches);
-      console.log(this._level);
-      setTimeout(this.gameEnd, 1500);
+      //if all matches are found : round ends (after 3 rounds game ends)
+      if (this._matches == this._level * 2) {
+        setTimeout(this.roundEnd, 1500);
+      }
     } else {
-      setTimeout(this.unFlip, 1000);
+      //no match : unflip cards
+      setTimeout(this.unFlip, 700);
     }
   };
 
   //UNFLIP CARDS
-
   unFlip = () => {
     this._firstFlip._ref
       .querySelector(".card-inner")
@@ -120,6 +123,7 @@ export default class Memory {
     this._secondFlip._ref
       .querySelector(".card-inner")
       .classList.toggle("flipped");
+    this._flips = [];
   };
 
   //WHOOHOO MATCHING CARDS
@@ -132,25 +136,30 @@ export default class Memory {
       .classList.toggle("matched");
   };
 
-  gameEnd = () => {
-    if (this._matches == this._level * 2) {
-      if (this._level == 3) {
-        window.alert(
-          "Wow, you discovered all there is to discover, but come again some time!"
-        );
-        this._level = 0;
-      } else {
-        window.alert("Nice work explorer, all animals have been matched");
-      }
-      //LEVEL UP
-      this._level += 1;
-      //REMOVE CARDS
-      const gameboard = document.querySelector(".gameboard");
-      const level = document.querySelector(".level");
-      gameboard.remove();
-      level.remove();
-      //INITIALIZE NEW GAME
-      this.init();
+  //END OF ROUND : ALL MATCHES FOUND (or game after 3 rounds)
+  roundEnd = () => {
+    //game ends after 3 succesful rounds
+    if (this._level == 3) {
+      window.alert(
+        "Wow, you discovered all there is to discover! Your short-term memory and wildlife spotting skills are ace..."
+      );
+      //reset level to 0
+      this._level = 0;
+    } else {
+      //end of round alert
+      window.alert(
+        "Nice work, you found all the pairs. Let's move on to new territory, where life is even more abundant!"
+      );
     }
+    //PREPARE NEW GAME
+    //LEVEL UP
+    this._level += 1;
+    //REMOVE CURRENT GAMEBOARD
+    const gameboard = document.querySelector(".gameboard");
+    const level = document.querySelector(".level");
+    gameboard.remove();
+    level.remove();
+    //INITIALIZE NEW GAME
+    this.init();
   };
 }

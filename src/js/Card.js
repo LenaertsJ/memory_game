@@ -14,7 +14,8 @@ export class Card {
       "beforeend",
       `<div class="card">
         <div class="card-inner">
-          <div class="card-front"></div>
+          <div class="card-front">
+          </div>
           <div class="card-back">
             <svg class="icon icon-${this._icon}">
                 <use xlink:href="./icons/symbol-defs.svg#icon-${this._icon}"></use>

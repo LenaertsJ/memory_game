@@ -7,16 +7,16 @@
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   background-color: gainsboro;
   .title-box {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     h1 {
       font-family: "Monoton", sans-serif;
       font-size: 50px;
@@ -27,29 +27,27 @@ body {
       font-family: "Raleway", sans-serif;
       color: rgb(55, 53, 173);
       margin-top: 10px;
-      margin-top: 10px;
     }
   }
   .gameboard {
+    @include make-col(4, 30px);
     margin: 0 auto;
-    width: 70%;
-    height: 80%;
+    max-width: 1200px;
+    min-height: 80vh;
     padding: 50px;
-    // padding-right: 80px;
     border-radius: 5px;
     background-image: url("../../images/jungle.jpg");
     background-position: center;
     background-size: cover;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     .card {
       background: transparent;
-      perspective: 1000px;
-      width: 200px;
-      height: 200px;
-      margin-right: 80px;
+      perspective: 500px;
+      width: 20%;
+      height: 190px;
+      // margin-right: 80px;
       border-radius: 10px;
 
       &:nth-child(4n) {
@@ -135,5 +133,27 @@ body {
 
   to {
     transform: scale3d(1, 1, 1);
+  }
+}
+
+//media queries
+
+@media only screen and (max-width: 700px) {
+  .container .gameboard .card {
+    width: 30%;
+
+    &:nth-child(2n) {
+      margin-right: 0px;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container .gameboard {
+    height: 70vh;
+  }
+  .container .gameboard .card {
+    width: 30%;
+    height: 90px;
   }
 }
